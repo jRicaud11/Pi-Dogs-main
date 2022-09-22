@@ -1,0 +1,142 @@
+.dogContainer{
+  background-image: url('../../images/OPSEG70.jpg');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dogCard{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2% 2% 2%;
+  border-radius: 15px;
+  max-width: 70%;
+  background-color:  #4b769e;
+
+  overflow: hidden;
+  animation: fadeIn 2s
+}
+
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+.dogCard h1{
+  font-size: 20px;
+}
+
+img{
+  width: auto;
+  height: 50vh;
+  object-fit: contain; 
+
+}
+
+.containerDetails{
+  margin: 10px
+}
+
+.containerDetails h3{
+  display: inline;
+}
+
+.containerDetails span{
+  background-color: #053f5c;
+  padding: 5px;
+  margin-right: 5px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.897)
+}
+
+.btnContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btBack{
+  width: 25%;
+  height: 30px;
+  border: none;
+  letter-spacing: 5px;
+  cursor: pointer;
+  background-color: #053f5c;
+  color: rgba(255, 255, 255, 0.897)
+}
+
+.delete{
+  width: 25%;
+  height: 30px;
+  border: none;
+  letter-spacing: 5px;
+  cursor: pointer;
+  background-color: rgb(221, 22, 39);
+}
+.temperamentContainer{
+  display: flex;
+}
+
+.temperamentContainer span{
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+  background-color: #053f5c;
+  color: rgba(255, 255, 255, 0.897)
+}
+
+.confirmationBox{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .9);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.confirmBtn{
+  font-size: 1.5rem;
+  margin: 15px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.denied:hover{
+  background-color: red;
+  transition: .5s;
+}
+
+.confirmed:hover{
+  background-color: green;
+  transition: .5s;
+}
+
+.successContainer{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .9);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

@@ -1,0 +1,33 @@
+.loaderContainer{
+  margin-top: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* background-image: url('../../images/OPSEG70.jpg'); */
+}
+
+.loaderContainer h4{
+  position: absolute;
+  font-size: 5vh;
+  margin-top: 50vh;
+  letter-spacing: 10px;
+  animation: pulse 4s infinite;
+}
+
+.loader{
+  position: relative;
+  height: 40vh;
+}
+
+@keyframes pulse{
+  0%{
+    opacity: 0.1
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0.1
+  }
+} 

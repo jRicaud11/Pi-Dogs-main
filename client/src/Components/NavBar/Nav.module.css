@@ -1,0 +1,55 @@
+.navBar{
+  /* background-color: hsl(168, 55%, 54%, .3); */
+ background: linear-gradient( #9c7958, #E1C699);
+ 
+  height: 9vh;
+  width: 100%;
+  position: static;
+}
+
+.searchContainer{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btns{
+  background-color: #F7F9F9;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.btns:hover{
+  box-shadow: 0 0 0 2px #053f5c
+}
+
+.searchInput{
+  outline: none;
+  font-size: 20px;
+  border: none;
+  padding: 5px;
+  border-radius: 5px 
+}
+
+.searchInput:focus{
+  box-shadow: 0 0 0 2px #053f5c
+}
+
+.filterContainer{
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.filterSelec{
+  background-color: #F7F9F9;
+  font-size: 20px;
+  width: 15%;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+}

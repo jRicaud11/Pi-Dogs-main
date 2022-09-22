@@ -1,0 +1,77 @@
+.container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 340px;
+  height: 370px;
+  place-content: center;
+  place-items: center;
+  border-radius: 15px;
+  background: linear-gradient(135deg,#053f5c, #4b769e);
+  opacity: 1;
+  animation: fadeIn 2s;
+}
+
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+.dogInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.link{
+  display: flex;
+  justify-content: center;
+}
+
+.image{
+  align-content: center;
+  width: 200px;
+  height: 170px;
+  object-fit: cover;
+  transition-duration: 0.5s;
+}
+
+.image:hover{
+  width: 220px;
+  height: 190px;
+}
+
+.name{
+  text-align: center;
+}
+
+h1{
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.weight{
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.temperament{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.temperament p {
+  margin: .2rem;
+  font-size: 1.1rem;
+  font-weight: 400; 
+}

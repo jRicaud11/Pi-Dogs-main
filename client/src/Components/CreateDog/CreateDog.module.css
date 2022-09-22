@@ -1,0 +1,122 @@
+.container{
+  background-image: url('../../images/OPSEG70.jpg');
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formContainer{
+  /* background-color: rgba(222, 184, 135, .8); */
+  background: linear-gradient(to right bottom,#053f5c, #4b769e);
+  padding: 30px 20px;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 15px;
+}
+
+.formContainer h1{
+  margin: 0;
+  text-align: center;
+  font-weight: 400;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.grouping{
+  display: flex;
+  flex-direction: column;
+}
+
+.grouping label{
+  font-size: 1.25rem;
+}
+
+.grouping input,
+.grouping select {
+  background-color: hsl(204, 51%, 89%, .9);
+  border-radius: 5px;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 200;
+  padding: 5px;
+  outline: none;
+}
+
+.grouping input:focus{
+  box-shadow: 0 0 0 2px #F27F0C;
+}
+
+.btns {
+  font-size: 1rem;
+  font-weight: lighter;
+  width: 45%;
+  height: 30px;
+  margin: 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer
+}
+
+.cancel{
+  background-color: hsl(0, 60%, 50%);
+}
+
+.create{
+  background-color: lightskyblue;
+}
+
+.error{
+  height: .7rem;
+  color: orangered
+}
+
+.temperaments{
+  display: flex;
+  margin: 7px 0 0 0;
+  justify-content: space-evenly;
+}
+
+.temperaments span{
+  cursor: pointer;
+  background-color: #9FE7F5;
+  padding: 5px;
+  border-radius: 7px;
+  margin-top: 3px;
+}
+
+.containerMsg{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .9);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.okBtn{
+  font-size: 1.5rem;
+  margin: 15px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border:none
+}
+
+.okBtn:hover{
+  background-color: green;
+  transition: .5s;
+  
+}
