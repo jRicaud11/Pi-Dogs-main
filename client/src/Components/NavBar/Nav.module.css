@@ -61,12 +61,12 @@
 }
 
 .smallTemperaments{
-  
+
 }
 
 @media (max-height: 768px){
   .navBar{
-    height: 11vh;
+    height: 14vh;
   }
 }
 
