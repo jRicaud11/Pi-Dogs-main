@@ -26,6 +26,9 @@ export default function Paginado({ actualPage, currentPage, totalPages, nextPage
                      </button>
                    </li>
           })}
+          <div className={style.smallPaging}>
+            <label>{currentPage} / {totalPages}</label>
+          </div>
           {pages.length > 0 && <button onClick={nextPage} className={style.moveBtn}>
             <span className="material-symbols-outlined"> arrow_forward </span></button>}
           </ul>

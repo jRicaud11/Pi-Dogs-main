@@ -86,3 +86,17 @@
 .btnStart:hover{
   animation: rotate 1.5s ease-in-out infinite;
 }
+
+@media (max-width: 500px){
+  .enterBtn{
+    width: 40vw;
+    top: 60%;
+  }
+
+  .welcome{
+    width: 0;
+    right: 90%;
+    top: 15%;
+  }
+
+}

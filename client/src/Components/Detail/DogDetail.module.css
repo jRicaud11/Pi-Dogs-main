@@ -83,6 +83,7 @@ img{
 }
 .temperamentContainer{
   display: flex;
+  flex-wrap: wrap;
 }
 
 .temperamentContainer span{
@@ -140,3 +141,13 @@ img{
   flex-direction: column;
 }
 
+
+@media (max-width: 500px){
+  img{
+    width: 80vw
+  }
+  .containerDetails{
+    display: flex;
+    flex-direction: column;
+  }
+}

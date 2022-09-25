@@ -83,17 +83,12 @@ export default function Nav({ setChange }) {
 
       <div className={`${style.searchContainer}`}>
         <Link to = '/create'><button className={style.btns}>CREATE</button></Link>
-        <input placeholder="SEARCH DOG. . ."
+        <input placeholder="SEARCH. . ."
          value={search}   
          onChange={(e) => setSearch(e.target.value)} 
          onKeyDown={(e)=>{return (e.key==='Enter') ? handleClickSearch() : null}}
          className={style.searchInput}
         />
-        <button 
-          className = {style.btns}
-          onClick={handleClickSearch}>
-          SEARCH
-        </button>
         <button 
           className={style.btns} 
           onClick={handleClickRefresh}>
@@ -102,6 +97,15 @@ export default function Nav({ setChange }) {
       </div>
 
       <div className={`${style.filterContainer}`}>
+        <select className={`${style.filterSelec}`} onChange={orderBy} value={filter}>
+          {/* <option selected disabled>Order By...</option> */}
+          <option value='title' selected disabled>Alphabet</option>
+          <option value='A-Z'>A-Z</option>
+          <option value='Z-A'>Z-A</option>
+          <option disabled>Weight</option>
+          <option value='heaviest'>Heaviest</option>
+          <option value='lightest'>Lightest</option>
+        </select>
          {/* DB o API */}
          <select className={`${style.filterSelec}`} onChange={handleOrigin} value={filter}>
           <option value='title' selected='defaultValue' disabled>Source</option>
@@ -116,32 +120,15 @@ export default function Nav({ setChange }) {
            })}
         </select>
         <div>
-          {/* <label>Temperaments: </label> */}
           {filterTemps.length > 0 ? 
             <div>
             { filterTemps.map(el => { return <span className={style.spanTemp} onClick={deleteTemperament}>{el}</span>})}
             </div>
           : null}   
         </div>
-        
-       
-        
-        <select className={`${style.filterSelec}`} onChange={orderBy} value={filter}>
-          {/* <option selected disabled>Order By...</option> */}
-          <option value='title' selected disabled>Alphabet</option>
-          <option value='A-Z'>A-Z</option>
-          <option value='Z-A'>Z-A</option>
-          <option disabled>Weight</option>
-          <option value='heaviest'>Heaviest</option>
-          <option value='lightest'>Lightest</option>
-        </select>
-
-        {/* <select className={`${style.filterSelec}`}  onChange={handleWeightOrder}>
-          <option selected='defaultValue' disabled>Weight</option>
-          <option value='heaviest'>Heaviest</option>
-          <option value='lightest'>Lightest</option>
-        </select> */}
       </div>
+      
+      
     </div>
  
   )

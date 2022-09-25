@@ -11,7 +11,9 @@ export default function LandingPage(){
   return(
     <div className={style.fullScreen}>
       <img src={landing} className={style.image}/>
+      <div>
       <h1 className={style.welcome}>Welcome to Henry Dogs</h1>
+      </div>
       <button 
         className={style.enterBtn}
         onClick={()=>history.push("/home")}>

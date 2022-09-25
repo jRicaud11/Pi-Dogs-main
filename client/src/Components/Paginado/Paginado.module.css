@@ -28,6 +28,7 @@
 }
 
 .moveBtn{
+  margin: 5px;
   height: 35px;
   padding:5px;
   border: none;
@@ -69,4 +70,27 @@
   'wght' 400,
   'GRAD' 0,
   'opsz' 48
+}
+
+.smallPaging{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #E1C699;
+  height: 35px;
+  padding: 0 3px;
+  border-radius: 5px;
+  animation: rotating 1.5s
+}
+
+@media (max-width: 600px){
+  .pageBtn{
+    display: none
+  }
+  .selectedBtn{
+    display: none
+  }
+  .smallPaging{
+    display: flex;
+  }
 }

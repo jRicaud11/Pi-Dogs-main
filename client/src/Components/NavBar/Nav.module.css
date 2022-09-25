@@ -60,3 +60,25 @@
   border-radius: 5px;
 }
 
+.smallTemperaments{
+  
+}
+
+@media (max-height: 768px){
+  .navBar{
+    height: 11vh;
+  }
+}
+
+@media (max-width: 500px){
+  .searchContainer input{
+    width: 30vw;
+    font-size: 15px;
+  }
+  .btns{
+    font-size: 15px;
+  }
+  .filterContainer{
+    justify-content: space-between;
+  }
+}

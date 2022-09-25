@@ -35,7 +35,7 @@ export default function Detail(props){
 
   function denyDelete(){
     setConfirmbox(false)
-    history.goBack()
+    history.push("/home")
   }
 
   function acceptDelete(){
