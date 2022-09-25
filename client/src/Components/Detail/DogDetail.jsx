@@ -12,8 +12,8 @@ export default function Detail(props){
   const dogDetail = useSelector(state => state.dogDetail);
   const errorMsg = useSelector(state => state.errorMsg)
   const history = useHistory();
-  const [confirmBox, setConfirmbox] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [confirmBox, setConfirmbox] = useState(false);
+  const [success, setSuccess] = useState(false);
   let temperament = dogDetail.temperament || dogDetail.temperaments
   temperament = temperament ? temperament.split(', ') : null;
 
@@ -55,7 +55,9 @@ export default function Detail(props){
     <div className={style.dogContainer}>
       <div className={style.dogCard}>
         <div className={style.btnContainer}>
-          <button className={style.btBack} onClick={handleClick}>Back</button> 
+          <button className={style.btBack} onClick={handleClick}>
+            Home
+          </button> 
           {typeof dogDetail.id === 'string' ? <button className={style.delete} onClick={handleDelete}>Delete</button> : null}
         </div>
         <h1>{dogDetail.name}</h1>

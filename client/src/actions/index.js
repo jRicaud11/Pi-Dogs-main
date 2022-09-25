@@ -13,7 +13,12 @@ export const CLEAR_INFO = 'CLEAR_INFO'
 export const CREATE_NEW_DOG = 'CREATE_NEW_DOG'
 export const DELETE_DOG = 'DELETE_DOG'
 export const SET_ERROR = 'SET_ERROR'
+export const SET_PAGE = 'SET_PAGE'
 
+
+export function setPage(move){
+  return {type:SET_PAGE, payload: move}
+}
 
 export function deleteDog(id){
   return async function(dispatch){
@@ -21,7 +26,6 @@ export function deleteDog(id){
       const deletedDog = await axios.delete(`http://localhost:3001/dogs/${id}`)
       dispatch({type: DELETE_DOG, payload: deletedDog.data.dog})
       dispatch({type: SET_ERROR, payload: deletedDog.data.msg})
-      // alert(deletedDog.data.msg)
     } catch (e){
       dispatch({type: SET_ERROR, payload: e.response.data.msg})
     }

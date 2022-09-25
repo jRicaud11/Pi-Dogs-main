@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector,  useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { getTemperaments, postDog } from '../../actions/index'
+import { getTemperaments, postDog, getDogs } from '../../actions/index'
 import { Link } from 'react-router-dom'
 import style from './CreateDog.module.css'
 
@@ -10,6 +10,7 @@ export default function CreateDog(){
   // let dogId = '';
   const history = useHistory();
   const dispatch = useDispatch()
+  const dogs = useSelector(state => state.allDogs)
   let temperaments = useSelector(state => state.allTemperaments)
   const errorCreate = useSelector(state => state.errorMsg)
   const [show, setShow] = useState(false)
@@ -42,7 +43,19 @@ export default function CreateDog(){
   })
   useEffect(() =>{
     dispatch(getTemperaments());
+    if(dogs.length === 0) dispatch(getDogs())
   }, [dispatch])
+
+
+  function isNumber(e){
+    const onlyNumbers = new RegExp(/^\d*\.{0,1}\d*$/)
+    if (!onlyNumbers.test(e.target.value)) {
+      setErrorManager({...errorManager, [e.target.name]: 'Only numbers and one dot allowed'})
+      setNewDog({...newDog, [e.target.name]: e.target.value})
+      return true;
+    }
+
+  }
 
   function handleChangeName(e){
     const onlyLetters =  new RegExp (/^(^$|[ a-z ])+$/i)
@@ -50,8 +63,7 @@ export default function CreateDog(){
       setErrorManager({...errorManager, [e.target.name]: 'Only letters allowed'})
       return setNewDog({...newDog, [e.target.name]: e.target.value})
     }
-    
-   
+     
     setErrorManager({...errorManager, [e.target.name]: ''})
     if(existingDogs.some(d => d.name.toUpperCase() === e.target.value.toUpperCase())){
       setErrorManager({...errorManager, [e.target.name]: 'Race already exists'})
@@ -60,12 +72,8 @@ export default function CreateDog(){
   }
 
   function handleChangeMinHight(e){
-    const onlyNumbers = new RegExp(/^\d*\.{0,1}\d*$/)
-    if (!onlyNumbers.test(e.target.value)) {
-      setErrorManager({...errorManager, [e.target.name]: 'Only numbers and one dot allowed'})
-      return setNewDog({...newDog, [e.target.name]: e.target.value})
-    }
-
+    if(isNumber(e)) return;
+    
     if(Number(newDog.maxHight) <= Number(e.target.value)) {
       setErrorManager({...errorManager, [e.target.name]: 'Min. Height must be smaller than Max. Height'})
     } else {
@@ -76,11 +84,7 @@ export default function CreateDog(){
   }
 
   function handleChangeMaxHight(e){
-    const onlyNumbers = new RegExp(/^\d*\.{0,1}\d*$/)
-    if(!onlyNumbers.test(e.target.value)){
-      setErrorManager({...errorManager, [e.target.name]:'Only numbers and one dot allowed'})
-      return setNewDog({...newDog, [e.target.name]: e.target.value})
-    }
+    if(isNumber(e)) return;
 
     if(Number(e.target.value) <= Number(newDog.minHight)){ 
       setErrorManager({...errorManager, [e.target.name]:'Max. Height must be higher than Min. Height'})
@@ -98,13 +102,9 @@ export default function CreateDog(){
   }
 
   function handleChangeMinWeight(e){
-    const onlyNumbers = new RegExp(/^\d*\.{0,1}\d*$/)
-    if(!onlyNumbers.test(e.target.value)){
-      setErrorManager({...errorManager, [e.target.name]: 'Only numbers and one dot allowed'})
-      return setNewDog({...newDog, [e.target.name]: e.target.value})
-    }
+    if (isNumber(e)) return;
 
-    if(Number(newDog.minWeight) <= Number(e.target.value)) {
+    if(Number(newDog.maxWeight) <= Number(e.target.value)) {
       setErrorManager({...errorManager, [e.target.name]: 'Min. Weight must be smaller than Max. Weight'})
     } else {
       setErrorManager({...errorManager, [e.target.name]: ''})
@@ -114,11 +114,7 @@ export default function CreateDog(){
   }
 
   function handleChangeMaxWeight(e){
-    const onlyNumbers = new RegExp(/^\d*\.{0,1}\d*$/)
-    if(!onlyNumbers.test(e.target.value)){
-      setErrorManager({...errorManager, [e.target.name]: 'Only numbers and one dot allowed'})
-      return setNewDog({...newDog, [e.target.name]: e.target.value})
-    }
+    if(isNumber(e)) return;
     
     if(Number(e.target.value) <= Number(newDog.minWeight)){ 
       setErrorManager({...errorManager, [e.target.name]: 'Max. Weight must be higher than Min. Weight'})
@@ -136,11 +132,8 @@ export default function CreateDog(){
   }
 
   function handleChangeLifeSpan(e){
-    const onlyNumbers = new RegExp(/^\d*\.{0,1}\d*$/)
-    if(!onlyNumbers.test(e.target.value)){
-    setErrorManager({...errorManager, [e.target.name]: 'Only numbers and one dot allowed'})
-    return setNewDog({...newDog, [e.target.name]: e.target.value})
-    }
+    if(isNumber(e)) return;
+
     if(e.target.value > 50) {
       setErrorManager({...errorManager, [e.target.name]: 'Life Span should be less than 50 years'})
       return setNewDog({...newDog, [e.target.name]: e.target.value})
@@ -175,14 +168,7 @@ export default function CreateDog(){
       ...newDog,
       temperament: newDog.temperament.filter(t => t !== e.target.innerText)
     })
-
     if(newDog.temperament.length < 6) setErrorManager({...errorManager, temperament: ''})
-  }
-
-  function activeCreate(){
-    if (Object.values(errorManager).some(error => error !=='')) return true;
-    if(!newDog.name || !newDog.maxHight || !newDog.minHight || !newDog.maxWeight || !newDog.minWeight || !newDog.life_span || newDog.temperament.length < 0) return true;
-    
   }
 
   async function handleSubmit(e){
@@ -198,11 +184,16 @@ export default function CreateDog(){
       temperament: newDog.temperament,
       image: img
     }
-    const testing = dispatch(postDog(dog))
-    const newId = await testing.then(res => res.id)
+    const getId = dispatch(postDog(dog))
+    const newId = await getId.then(res => res.id)
     setDogId(newId)
     setShow(true)
    
+  }
+
+  function activeCreate(){
+    if (Object.values(errorManager).some(error => error !=='')) return true;
+    if(!newDog.name || !newDog.maxHight || !newDog.minHight || !newDog.maxWeight || !newDog.minWeight || !newDog.life_span || newDog.temperament.length < 0) return true;
   }
 
   function okButton(){ 
@@ -288,10 +279,7 @@ export default function CreateDog(){
       </div>
       {show && <div className={style.containerMsg}>
         <h2>{errorCreate || 'Dog succefully created'}</h2>
-        {/* <Link to={`/dogs/${dogId}`} >
-          <button className={style.okBtn}>Ok</button>
-        </Link> */}
-          <button className={style.okBtn} onClick={okButton}>Ok</button>
+        <button className={style.okBtn} onClick={okButton}>Ok</button>
       </div>}
     </div>
   )

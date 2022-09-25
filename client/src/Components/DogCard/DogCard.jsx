@@ -23,25 +23,5 @@ export default function DogCard(props) {
         </div>
       </div>
     </div>
-
-
-
-
-    // <Link to={`/dogs/${props.id}`} className={`${style.cardContainer}`}>
-    //     <div className={`${style.cardContainer}`}>
-    //       <div className={`${style.dogCard}`}>
-    //         <div className={`${style.imgContainer}`}>
-    //           <img className={`${style.imgDog}`} src={props.img} alt={`Race ${props.name}`} />
-    //         </div>
-    //         <h3 className={`${style.title}`}>{props.name}</h3>
-    //         <div className={`${style.listTemperaments}`}>
-    //           {temperaments && temperaments.map(el => {
-    //             return <span key={el}>{el}</span>
-    //           })}
-    //         </div>
-    //         <label>Average Weight: </label>  <strong>{`${props.weight} KG`}</strong>
-    //       </div>
-    //     </div>
-    // </Link>  
   )
 }

@@ -8,6 +8,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
+
 .fullScreen{
   /* background-image: url('../../images/vecteezy_vector-illustration-of-dog-background-copy-space-area_7819656.jpg'); */
   background-color: rgb(246,251,254);
@@ -38,11 +39,24 @@
 
 .enterBtn{
   position: absolute;
-  border-radius: 50%;
-  background: transparent;
-  height: 12rem;
-  width: 12rem;
+  width: 20%;
+  height: 5%;
+  right: 56%;
+  top: 30%;
+  background-image: url('../../images/paw.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 15px;
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+  font-family: "Lobster", cursive;
   cursor: pointer;
+  background-color:#E1C699;
+}
+
+.enterBtn:hover{
+  background-color: #9c7958;
+  transition: .5s;
 }
 
 .welcome{

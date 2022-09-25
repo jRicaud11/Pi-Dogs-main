@@ -6,6 +6,15 @@
     opacity: 1;
   }
 }
+
+@keyframes rotating {
+  0%{
+    transform: rotateY(90deg);
+  }
+  100%{
+    transform: rotateY(0deg);
+  }
+}
 .pagination {
   display: flex;
   justify-content: center;
@@ -20,14 +29,12 @@
 
 .moveBtn{
   height: 35px;
-  padding:10px;
+  padding:5px;
   border: none;
   border-radius: 5px;
-  /* background-color: rgba(222, 184, 135, .7); */
-  /* background-color:  #4b769e; */
   background-color: #E1C699;
   cursor: pointer;
-  animation: fadeIn 3s;
+  animation: rotating 1.5s;
 }
 
 .pageBtn{
@@ -36,23 +43,30 @@
   margin: 5px;
   border: none;
   border-radius: 5px;
-  /* background-color: rgba(222, 184, 135, .3); */
-  /* background-color: #4b769e; */
   background-color: #E1C699;
   cursor: pointer;
-  animation: fadeIn 3s;
+  /* animation: fadeIn 3s; */
+  animation: rotating 1.5s;
 }
-/* #9c7958, #E1C699 */
+
 .selectedBtn {
   height: 35px;
   width: 35px;
   margin: 5px;
   border: none;
   border-radius: 5px;
-  /* background-color: #4b769e; */
   background-color: #9c7958;
-  /* box-shadow: 0 0 0 2px #F27F0C; */
   cursor: pointer;
-  animation: fadeIn 3s;
+  /* animation: fadeIn 3s; */
+  animation: rotating 1.5s;
 }
 
+
+.material-symbols-outlined {
+  top: 50%;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}

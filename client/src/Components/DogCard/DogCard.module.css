@@ -3,13 +3,13 @@
   justify-content: center;
   flex-direction: column;
   width: 340px;
-  height: 370px;
+  height: 365px;
   place-content: center;
   place-items: center;
   border-radius: 15px;
   background: linear-gradient(135deg,#053f5c, #4b769e);
-  opacity: 1;
   animation: fadeIn 2s;
+  box-shadow: 10px 12px 10px black;
 }
 
 @keyframes fadeIn{
@@ -43,8 +43,7 @@
 }
 
 .image:hover{
-  width: 220px;
-  height: 190px;
+  box-shadow: 10px 10px 15px 2px black;
 }
 
 .name{

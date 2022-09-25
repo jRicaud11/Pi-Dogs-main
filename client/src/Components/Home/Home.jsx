@@ -2,7 +2,7 @@ import React from 'react';
 import DogCard from '../DogCard/DogCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getDogs } from '../../actions/index';
+import { getDogs, setPage} from '../../actions/index';
 import * as style from './Home.module.css'
 import Nav from '../NavBar/Nav'
 import Paginado from '../Paginado/Paginado.jsx'
@@ -13,30 +13,36 @@ import NotFound from '../NotFound/NotFound.jsx';
 export default function Home() {
   const dispatch = useDispatch()
   const dogs = useSelector(state => state.allDogs);
-  const error = useSelector(state=> state.errorMsg)
+  const error = useSelector(state=> state.errorMsg);
   const [change, setChange] = useState()
   
 
   //paginado
   const dogsPerPage = 8;
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = useSelector(state => state.currentPage)
   const lastIndex = currentPage * dogsPerPage; //8-16-24-...
   const firstIndex = lastIndex - dogsPerPage; //0-8-16-... 
   const totalPages = Math.ceil(dogs.length / dogsPerPage)
   const dogsToShow = dogs.slice(firstIndex, lastIndex);
-  
+
+
   const actualPage = (number) =>{
-    setCurrentPage(number)
+    dispatch(setPage(number))
+    // setCurrentPage(number)
   }
 
   const nextPage = () => {
     if(currentPage >= totalPages) return;
-    setCurrentPage(currentPage + 1)
+    dispatch(setPage('up'))
+    
+    // setCurrentPage(currentPage + 1)
   }
 
   const prevPage = () => {
     if(currentPage === 1) return;
-    setCurrentPage(currentPage - 1)
+    dispatch(setPage('down'))
+    // setCurrentPage(currentPage - 1)
   }
 
   useEffect(()=>{
@@ -45,7 +51,8 @@ export default function Home() {
    
   return(
      <div className={style.cover}>
-     <Nav setChange={setChange} setCurrentPage={setCurrentPage}/> 
+      {/*setCurrentPage={setCurrentPage}*/}
+     <Nav setChange={setChange} /> 
      {(change && dogs.length === 0) || (error) ? <NotFound />
      : totalPages < 1 ? <Loading /> 
      : <>

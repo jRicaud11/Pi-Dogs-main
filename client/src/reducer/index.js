@@ -10,18 +10,39 @@ import {  CLEAR_INFO,
           GET_DOG_DETAIL,
           CREATE_NEW_DOG,
           DELETE_DOG,
-          SET_ERROR } from '../actions/index'
+          SET_ERROR,
+          SET_PAGE } from '../actions/index'
 
 const INITIAL_STATE = {
   originalDogs : [],
   allDogs : [],
   allTemperaments : [],
   dogDetail: {},
-  errorMsg: ''
+  errorMsg: '',
+  currentPage: 1,
+  tempsToFilter: []
 }
 
 export default function rootReducer(state = INITIAL_STATE, action){
   switch(action.type){
+    case(SET_PAGE):{
+      if(action.payload === 'up'){
+       return{
+        ...state,
+        currentPage: Number(state.currentPage) + 1
+       }
+      }
+      if(action.payload === 'down'){
+        return{
+          ...state,
+          currentPage: Number(state.currentPage) - 1
+        }
+      }
+      return {
+        ...state,
+        currentPage: action.payload
+      }
+    }
     case(SET_ERROR): {
       return{
         ...state,
@@ -67,19 +88,22 @@ export default function rootReducer(state = INITIAL_STATE, action){
       }
     }
     case (GET_TEMPERAMENTS_FILTER): {
-      const filters = [...state.allDogs];
-      let temperamentsFiltered = filters.filter(el => {
-        return(
-          el.temperament?.includes(action.payload) || 
-          el.temperament?.includes(`${action.payload},`) ||
-          el.temperaments?.includes(action.payload) ||
-          el.temperaments?.includes(`${action.payload},`)
-        )
-      })
-      console.log(temperamentsFiltered)
+      const search = action.payload;
+      let filters = [...state.originalDogs];
+      for(const temp of search) {
+       filters = filters.filter(el => {
+         return(
+           el.temperament?.includes(temp) || 
+           el.temperament?.includes(`${temp},`) ||
+           el.temperaments?.includes(temp) ||
+           el.temperaments?.includes(`${temp},`)
+          )
+        })
+      }
       return {
         ...state,
-        allDogs: temperamentsFiltered
+        allDogs: filters,
+        tempsToFilter: action.payload
       }
     }
     case(GET_DOGS): {
