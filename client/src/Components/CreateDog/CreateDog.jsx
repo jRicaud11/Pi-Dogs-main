@@ -15,6 +15,7 @@ export default function CreateDog(){
   const errorCreate = useSelector(state => state.errorMsg)
   const [show, setShow] = useState(false)
   const [dogId, setDogId] = useState('')
+  const [tempSelect, setTempSelect] = useState()
   let existingDogs = useSelector(state => state.originalDogs)
   temperaments = temperaments ? temperaments.sort((a,b) => {
     return a.name > b.name ? 1 : -1
@@ -46,6 +47,10 @@ export default function CreateDog(){
     if(dogs.length === 0) dispatch(getDogs())
   }, [dispatch])
 
+  //Check temperaments is not empty, or render the error
+  useEffect(() => {
+    if(newDog.temperament.length === 0) setErrorManager({...errorManager, temperament: 'Choose up to 5 temperaments'})
+  }, [newDog])
 
   function isNumber(e){
     const onlyNumbers = new RegExp(/^\d*\.{0,1}\d*$/)
@@ -121,7 +126,6 @@ export default function CreateDog(){
       return setNewDog({...newDog, [e.target.name]: e.target.value})
     }else {
       if(errorManager.minWeight.includes('Max.')){
-        console.log('aca')
         setNewDog({...newDog, [e.target.name]: e.target.value})
         return setErrorManager({...errorManager, minWeight:'', [e.target.name]: ''})
       }
@@ -160,15 +164,17 @@ export default function CreateDog(){
     }
 
     setErrorManager({...errorManager, temperament:''});
+    setTempSelect()
     setNewDog({...newDog, temperament: [...newDog.temperament, e.target.value]})
   }
 
   function handleClickTemperaments(e){
     setNewDog({
-      ...newDog,
-      temperament: newDog.temperament.filter(t => t !== e.target.innerText)
+       ...newDog,
+       temperament: newDog.temperament.filter(t => t !== e.target.innerText)
     })
     if(newDog.temperament.length < 6) setErrorManager({...errorManager, temperament: ''})
+    setTempSelect('title')
   }
 
   async function handleSubmit(e){
@@ -255,8 +261,8 @@ export default function CreateDog(){
 
           <div className={style.grouping}>
             <label>Temperaments *</label>
-            <select onChange={handleTemperaments}>
-            <option selected='defaultValue' disabled>Temperaments</option>
+            <select onChange={handleTemperaments} value={tempSelect}>
+            <option value="title" selected='defaultValue' disabled>Temperaments</option>
               {temperaments && temperaments.map(t => {
                 return <option name='temperament' key={t.id} value={t.name}>{t.name}</option>
               })}
