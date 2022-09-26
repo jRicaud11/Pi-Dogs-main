@@ -52,7 +52,7 @@ export default function Home() {
   return(
      <div className={style.cover}>
       {/*setCurrentPage={setCurrentPage}*/}
-     <Nav setChange={setChange} /> 
+     <Nav setChange={setChange} change={change}/> 
      {(change && dogs.length === 0) || (error) ? <NotFound />
      : totalPages < 1 ? <Loading /> 
      : <>

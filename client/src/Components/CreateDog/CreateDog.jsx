@@ -53,9 +53,9 @@ export default function CreateDog(){
   }, [newDog])
 
   function isNumber(e){
-    const onlyNumbers = new RegExp(/^\d*\.{0,1}\d*$/)
+    const onlyNumbers = new RegExp(/^\d*\.{0,1}\d$/)
     if (!onlyNumbers.test(e.target.value)) {
-      setErrorManager({...errorManager, [e.target.name]: 'Only numbers and one dot allowed'})
+      setErrorManager({...errorManager, [e.target.name]: 'Only numbers and one dot followed by decimals allowed'})
       setNewDog({...newDog, [e.target.name]: e.target.value})
       return true;
     }
@@ -68,29 +68,42 @@ export default function CreateDog(){
       setErrorManager({...errorManager, [e.target.name]: 'Only letters allowed'})
       return setNewDog({...newDog, [e.target.name]: e.target.value})
     }
-     
-    setErrorManager({...errorManager, [e.target.name]: ''})
-    if(existingDogs.some(d => d.name.toUpperCase() === e.target.value.toUpperCase())){
+    setErrorManager({...errorManager, [e.target.name]: ''}) 
+
+    if(existingDogs.some(d => d.name.toUpperCase() === e.target.value.toUpperCase().trim())){
       setErrorManager({...errorManager, [e.target.name]: 'Race already exists'})
     } 
+    if(e.target.value.length > 20){
+      setErrorManager({...errorManager, [e.target.name]: 'Name can\'t be longer than 20 characters  '})
+    }
     setNewDog({...newDog, [e.target.name]: e.target.value})
   }
 
   function handleChangeMinHight(e){
     if(isNumber(e)) return;
-    
-    if(Number(newDog.maxHight) <= Number(e.target.value)) {
+    if(e.target.value > 999) {
+      setNewDog({...newDog, [e.target.name]: e.target.value})
+      return setErrorManager({...errorManager, [e.target.name]: 'Hight must be under 999'})
+    }
+    if(newDog.maxHight && Number(newDog.maxHight) <= Number(e.target.value)) {
       setErrorManager({...errorManager, [e.target.name]: 'Min. Height must be smaller than Max. Height'})
-    } else {
+    }  else {
       setErrorManager({...errorManager, [e.target.name]: ''})
     }
-
+    if(errorManager.maxHight.includes('Min.')){
+      setErrorManager({...errorManager, maxHight:'', [e.target.name]:''})
+      return setNewDog({...newDog, [e.target.name]: e.target.value})
+    }
+    
     setNewDog({...newDog, [e.target.name]: e.target.value})
   }
 
   function handleChangeMaxHight(e){
     if(isNumber(e)) return;
-
+    if(e.target.value > 999) {
+      setNewDog({...newDog, [e.target.name]: e.target.value})
+      return setErrorManager({...errorManager, [e.target.name]: 'Hight must be under 999'})
+    }
     if(Number(e.target.value) <= Number(newDog.minHight)){ 
       setErrorManager({...errorManager, [e.target.name]:'Max. Height must be higher than Min. Height'})
       return setNewDog({...newDog, [e.target.name]: e.target.value})
@@ -101,26 +114,34 @@ export default function CreateDog(){
       }
     } 
     
-    
     setErrorManager({...errorManager, [e.target.name]: ''})
     setNewDog({...newDog, [e.target.name]: e.target.value})
   }
 
   function handleChangeMinWeight(e){
     if (isNumber(e)) return;
-
-    if(Number(newDog.maxWeight) <= Number(e.target.value)) {
+    if(e.target.value > 999) {
+      setNewDog({...newDog, [e.target.name]: e.target.value})
+      return setErrorManager({...errorManager, [e.target.name]: 'Weight must be under 999'})
+    }
+    if(newDog.maxWeight && Number(newDog.maxWeight) <= Number(e.target.value)) {
       setErrorManager({...errorManager, [e.target.name]: 'Min. Weight must be smaller than Max. Weight'})
     } else {
       setErrorManager({...errorManager, [e.target.name]: ''})
     }
-
+    if(errorManager.maxWeight.includes('Min.')){
+      setErrorManager({...errorManager, maxWeight: '', [e.target.name]: ''})
+      return setNewDog({...newDog, [e.target.name]: e.target.value})
+    }
     setNewDog({...newDog, [e.target.name]: e.target.value})
   }
 
   function handleChangeMaxWeight(e){
     if(isNumber(e)) return;
-    
+    if(e.target.value > 999) {
+      setNewDog({...newDog, [e.target.name]: e.target.value})
+      return setErrorManager({...errorManager, [e.target.name]: 'Weight must be under 999'})
+    }
     if(Number(e.target.value) <= Number(newDog.minWeight)){ 
       setErrorManager({...errorManager, [e.target.name]: 'Max. Weight must be higher than Min. Weight'})
       return setNewDog({...newDog, [e.target.name]: e.target.value})

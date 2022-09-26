@@ -84,7 +84,8 @@ export default function rootReducer(state = INITIAL_STATE, action){
     case(GET_DOG_BY_NAME): {
       return {
         ...state,
-        allDogs: action.payload
+        allDogs: action.payload,
+        errorMsg: ''
       }
     }
     case (GET_TEMPERAMENTS_FILTER): {

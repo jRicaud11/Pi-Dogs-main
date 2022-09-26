@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { alphabeticalOrder, weightOrder, getOriginDB, getTemperamentsFilter, getDogByName, refreshDefaultValues,clearError } from '../../actions/index'; 
 
-export default function Nav({ setChange }) {
+export default function Nav({ setChange, change }) {
   const dispatch = useDispatch();
   let temperaments = useSelector(state => state.allTemperaments);
   const tempsToFilter = useSelector(state => state.tempsToFilter)
@@ -35,6 +35,7 @@ export default function Nav({ setChange }) {
     }
     setFilter()
   }
+
   function handleOrigin(e){
     const val = e.target.value;
     dispatch(getOriginDB(val));
