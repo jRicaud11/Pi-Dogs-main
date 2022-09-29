@@ -25,48 +25,17 @@ const INITIAL_STATE = {
 
 export default function rootReducer(state = INITIAL_STATE, action){
   switch(action.type){
-    case(SET_PAGE):{
-      if(action.payload === 'up'){
-       return{
-        ...state,
-        currentPage: Number(state.currentPage) + 1
-       }
-      }
-      if(action.payload === 'down'){
-        return{
-          ...state,
-          currentPage: Number(state.currentPage) - 1
-        }
-      }
+    case(GET_DOGS): {
       return {
         ...state,
-        currentPage: action.payload
+        allDogs: action.payload,
+        originalDogs: action.payload
       }
     }
-    case(SET_ERROR): {
+    case(GET_TEMPERAMENTS): {
       return{
         ...state,
-        errorMsg: action.payload
-      }
-    }
-    case(CREATE_NEW_DOG):{
-      return {
-        ...state,
-        allDogs: [...state.allDogs, action.payload],
-        originalDogs: [...state.originalDogs, action.payload]
-      }
-    }
-    case(DELETE_DOG): {
-      return{
-        ...state,
-        allDogs: state.allDogs.filter(el => el.id !== action.payload),
-        originalDogs: state.originalDogs.filter(el => el.id !== action.payload)
-      } 
-    }
-    case(CLEAR_INFO):{
-      return {
-        ...state,
-        dogDetail: {}
+        allTemperaments: action.payload
       }
     }
     case(GET_DOG_DETAIL):{
@@ -75,17 +44,63 @@ export default function rootReducer(state = INITIAL_STATE, action){
         dogDetail: action.payload
       }
     }
-    case(REFRESH_DEFAULT): {
+    case(CLEAR_INFO):{
       return {
         ...state,
-        allDogs: [...state.originalDogs]
+        dogDetail: {}
       }
     }
     case(GET_DOG_BY_NAME): {
+      let doggies = [...state.originalDogs]
       return {
         ...state,
-        allDogs: action.payload,
-        errorMsg: ''
+        allDogs: doggies.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase()))
+       
+      }
+    }
+    case (WEIGHT_ORDER): {
+      const allDogs = state.allDogs;
+      const orderedDogs = allDogs.sort((a, b) => {
+          if(action.payload === 'heaviest') {
+            return b.weight - a.weight
+          } else {
+            return a.weight - b.weight
+          }
+         })
+      return {
+        ...state,
+        allDogs: orderedDogs
+      }
+    } 
+    case (APLHABETIACAL_ORDER): {
+      const allDogs = state.allDogs;
+      const orderedDogs = action.payload === 'A-Z' ?
+        allDogs.sort((a, b) => {
+          if(a.name.toUpperCase() > b.name.toUpperCase()) return 1
+          if(b.name.toUpperCase() > a.name.toUpperCase()) return -1
+          return 0
+        }) 
+        : allDogs.sort((a, b) => {
+          if(a.name.toUpperCase() < b.name.toUpperCase()) return 1
+          if(a.name.toUpperCase()> b.name.toUpperCase()) return -1
+          return 0
+        })
+      return {
+        ...state,
+        allDogs: orderedDogs
+      }
+    }
+    case (GET_ORIGIN_DB): {
+      const dbDogs = [...state.originalDogs];
+      let filteredDogs = [];
+      if (action.payload === 'created'){
+        filteredDogs = dbDogs.filter(d => typeof d.id === 'string');
+      } else {
+        filteredDogs = dbDogs.filter(d => typeof d.id === 'number');
+      }
+      return {
+        ...state,
+        allDogs: filteredDogs
       }
     }
     case (GET_TEMPERAMENTS_FILTER): {
@@ -107,62 +122,48 @@ export default function rootReducer(state = INITIAL_STATE, action){
         tempsToFilter: action.payload
       }
     }
-    case(GET_DOGS): {
+    case(REFRESH_DEFAULT): {
       return {
         ...state,
-        allDogs: action.payload,
-        originalDogs: action.payload
+        allDogs: [...state.originalDogs]
       }
     }
-    case(GET_TEMPERAMENTS): {
+    case(CREATE_NEW_DOG):{
+      return {
+        ...state,
+        allDogs: [...state.allDogs, action.payload],
+        originalDogs: [...state.originalDogs, action.payload]
+      }
+    }
+    case(DELETE_DOG): {
       return{
         ...state,
-        allTemperaments: action.payload
+        allDogs: state.allDogs.filter(el => el.id !== action.payload),
+        originalDogs: state.originalDogs.filter(el => el.id !== action.payload)
+      } 
+    }
+    case(SET_ERROR): {
+      return{
+        ...state,
+        errorMsg: action.payload
       }
     }
-    case (APLHABETIACAL_ORDER): {
-      const allDogs = state.allDogs;
-      const orderedDogs = action.payload === 'A-Z' ?
-        allDogs.sort((a, b) => {
-          if(a.name.toUpperCase() > b.name.toUpperCase()) return 1
-          if(b.name.toUpperCase() > a.name.toUpperCase()) return -1
-          return 0
-        }) 
-        : allDogs.sort((a, b) => {
-          if(a.name.toUpperCase() < b.name.toUpperCase()) return 1
-          if(a.name.toUpperCase()> b.name.toUpperCase()) return -1
-          return 0
-        })
-      return {
+    case(SET_PAGE):{
+      if(action.payload === 'up'){
+       return{
         ...state,
-        allDogs: orderedDogs
+        currentPage: Number(state.currentPage) + 1
+       }
       }
-    }
-    case (WEIGHT_ORDER): {
-      const allDogs = state.allDogs;
-      const orderedDogs = allDogs.sort((a, b) => {
-          if(action.payload === 'heaviest') {
-            return b.weight - a.weight
-          } else {
-            return a.weight - b.weight
-          }
-         })
-      return {
-        ...state,
-        allDogs: orderedDogs
-      }
-    } 
-    case (GET_ORIGIN_DB): {
-      const dbDogs = [...state.originalDogs];
-      let filteredDogs = [];
-      if (action.payload === 'created'){
-        filteredDogs = dbDogs.filter(d => typeof d.id === 'string');
-      } else {
-        filteredDogs = dbDogs.filter(d => typeof d.id === 'number');
+      if(action.payload === 'down'){
+        return{
+          ...state,
+          currentPage: Number(state.currentPage) - 1
+        }
       }
       return {
         ...state,
-        allDogs: filteredDogs
+        currentPage: action.payload
       }
     }
     default: return {

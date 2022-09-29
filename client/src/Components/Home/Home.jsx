@@ -53,7 +53,7 @@ export default function Home() {
      <div className={style.cover}>
       {/*setCurrentPage={setCurrentPage}*/}
      <Nav setChange={setChange} change={change}/> 
-     {(change && dogs.length === 0) || (error) ? <NotFound />
+    {(change && dogs.length === 0) || (error) ? <NotFound />
      : totalPages < 1 ? <Loading /> 
      : <>
         <Paginado actualPage={actualPage} nextPage={nextPage} prevPage={prevPage} currentPage={currentPage} totalPages={totalPages} /> 

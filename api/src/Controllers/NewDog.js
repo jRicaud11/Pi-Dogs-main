@@ -5,6 +5,7 @@ const newDog = async(req, res) => {
   const { name, height, weight, life_span, temperament, image, id } = req.body;
  
   if(!name || !height || !weight || !life_span || !temperament) {
+    console.log(name, height, weight, life_span, temperament)
     return res.status(400).json({"msg" : "Parameters missing"})
   }
   

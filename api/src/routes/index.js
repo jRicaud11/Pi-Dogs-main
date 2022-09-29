@@ -6,6 +6,8 @@ const { dogById } = require('../Controllers/DogId');
 const { newDog } = require('../Controllers/NewDog')
 const { temperaments } = require('../Controllers/DataTemperaments')
 const { deleteDog } = require('../Controllers/deleteDog')
+
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 // Configurar los routers

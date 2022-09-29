@@ -16,39 +16,6 @@ export const SET_ERROR = 'SET_ERROR'
 export const SET_PAGE = 'SET_PAGE'
 
 
-export function setPage(move){
-  return {type:SET_PAGE, payload: move}
-}
-
-export function deleteDog(id){
-  return async function(dispatch){
-    try{
-      const deletedDog = await axios.delete(`/dogs/${id}`)
-      dispatch({type: DELETE_DOG, payload: deletedDog.data.dog})
-      dispatch({type: SET_ERROR, payload: deletedDog.data.msg})
-    } catch (e){
-      dispatch({type: SET_ERROR, payload: e.response.data.msg})
-    }
-  }
-}
-export function postDog(newDog){
-  return async function(dispatch){
-    try{
-      const postDog = await axios.post('/dogs', newDog);
-      dispatch({type: CREATE_NEW_DOG, payload: postDog.data})
-      return(postDog.data)
-    }
-    catch (e){
-      dispatch({type:SET_ERROR, payload: e.response.data.msg})
-    }
-  }
-}
-export function clearError(){
-  return function(dispatch){
-    dispatch({type: SET_ERROR, payload: ''})
-  }
-}
-
 export function getDogs(){
   return async function(dispatch){
     try{
@@ -57,6 +24,13 @@ export function getDogs(){
     } catch(e){
       dispatch({type:SET_ERROR, payload: e.response.data.msg})
     }
+  }
+}
+
+export function getTemperaments(){
+  return async function(dispatch){
+    const temperaments = await axios('/temperaments');
+    return dispatch({type: GET_TEMPERAMENTS, payload: temperaments.data});
   }
 }
 
@@ -71,11 +45,12 @@ export function getDogDetail(id){
   }
 }
 
-export function getTemperaments(){
-  return async function(dispatch){
-    const temperaments = await axios('/temperaments');
-    return dispatch({type: GET_TEMPERAMENTS, payload: temperaments.data});
-  }
+export function clearInfo(){
+  return {type: CLEAR_INFO}
+}
+
+export function getDogByName(breed){
+  return {type: GET_DOG_BY_NAME, payload: breed}
 }
 
 export function alphabeticalOrder(direction){
@@ -94,23 +69,41 @@ export function getTemperamentsFilter(temp){
   return {type: GET_TEMPERAMENTS_FILTER, payload: temp}
 }
 
-export function getDogByName(race){
-  return async function(dispatch){
-    let dogs = '';
-    try{
-      dogs = await axios(`/dogs?name=${race}`)
-      return dispatch({type: GET_DOG_BY_NAME, payload: dogs.data})
-    } catch(e) {
-      dispatch({type:SET_ERROR, payload: e.response.data.msg})
-      
-    }
-  }
-}
-
 export function refreshDefaultValues(){
   return {type: REFRESH_DEFAULT}
 }
 
-export function clearInfo(){
-  return {type: CLEAR_INFO}
+export function postDog(newDog){
+  return async function(dispatch){
+    try{
+      const postDog = await axios.post('/dogs', newDog);
+      dispatch({type: CREATE_NEW_DOG, payload: postDog.data})
+      return(postDog.data)
+    }
+    catch (e){
+      dispatch({type:SET_ERROR, payload: e.response.data.msg})
+    }
+  }
+}
+
+export function deleteDog(id){
+  return async function(dispatch){
+    try{
+      const deletedDog = await axios.delete(`/dogs/${id}`)
+      dispatch({type: DELETE_DOG, payload: deletedDog.data.dog})
+      dispatch({type: SET_ERROR, payload: deletedDog.data.msg})
+    } catch (e){
+      dispatch({type: SET_ERROR, payload: e.response.data.msg})
+    }
+  }
+}
+
+export function clearError(){
+  return function(dispatch){
+    dispatch({type: SET_ERROR, payload: ''})
+  }
+}
+
+export function setPage(move){
+  return {type:SET_PAGE, payload: move}
 }

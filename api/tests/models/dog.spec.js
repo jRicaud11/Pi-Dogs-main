@@ -18,5 +18,15 @@ describe('Dog model', () => {
         Dog.create({ name: 'Pug' });
       });
     });
+    describe('height', ()=>{
+      it('should throw an error if height is null', (done) => {
+        Dog.create({})
+          .then(() => done(new Error('It requires a valid height')))
+          .catch(() => done());
+      });
+      it('should work when its a valid height', () => {
+        Dog.create({ height: 20 });
+      });
+    })
   });
 });

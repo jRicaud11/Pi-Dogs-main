@@ -56,11 +56,11 @@ export default function Nav({ setChange, change }) {
     setFilter()
   }
 
-  function handleClickSearch(){
-    dispatch(getDogByName(search));
+  function handleSearch(e){
+    setSearch(e.target.value)
+    dispatch(getDogByName(e.target.value));
     dispatch(setPage(1))
     setChange(search);
-    setSearch('');
     setFilter()
   }
 
@@ -69,6 +69,7 @@ export default function Nav({ setChange, change }) {
     dispatch(clearError())
     dispatch(setPage(1))
     setChange('')
+    setSearch('')
     setFilterTemps([])
     setFilter('title')
   }
@@ -79,6 +80,7 @@ export default function Nav({ setChange, change }) {
     console.log(filterTemps)
     dispatch(getTemperamentsFilter(newFilter))
   }
+
   return(
     <div className={`${style.navBar}`}>
 
@@ -86,8 +88,7 @@ export default function Nav({ setChange, change }) {
         <Link to = '/create'><button className={style.btns}>CREATE</button></Link>
         <input placeholder="SEARCH. . ."
          value={search}   
-         onChange={(e) => setSearch(e.target.value)} 
-         onKeyDown={(e)=>{return (e.key==='Enter') ? handleClickSearch() : null}}
+         onChange={handleSearch}
          className={style.searchInput}
         />
         <button 
@@ -99,7 +100,6 @@ export default function Nav({ setChange, change }) {
 
       <div className={`${style.filterContainer}`}>
         <select className={`${style.filterSelec}`} onChange={orderBy} value={filter}>
-          {/* <option selected disabled>Order By...</option> */}
           <option value='title' selected disabled>Alphabet</option>
           <option value='A-Z'>A-Z</option>
           <option value='Z-A'>Z-A</option>

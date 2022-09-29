@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 import { useSelector,  useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { getTemperaments, postDog, getDogs } from '../../actions/index'
-import { Link } from 'react-router-dom'
 import style from './CreateDog.module.css'
 
 export default function CreateDog(){
@@ -48,9 +47,9 @@ export default function CreateDog(){
   }, [dispatch])
 
   //Check temperaments is not empty, or render the error
-  useEffect(() => {
-    if(newDog.temperament.length === 0) setErrorManager({...errorManager, temperament: 'Choose up to 5 temperaments'})
-  }, [newDog])
+  // useEffect(() => {
+  //   if(newDog.temperament.length === 0) setErrorManager({...errorManager, temperament: 'Choose up to 5 temperaments'})
+  // }, [newDog])
 
   function isNumber(e){
     const onlyNumbers = new RegExp(/^\d*\.{0,1}\d$/)
@@ -198,7 +197,7 @@ export default function CreateDog(){
     setTempSelect('title')
   }
 
-  async function handleSubmit(e){
+  function handleSubmit(e){
     e.preventDefault();
     const avgHeight = (Number(newDog.minHight) + Number(newDog.maxHight)) / 2
     const avgWeight = (Number(newDog.minWeight) + Number(newDog.maxWeight)) / 2
@@ -212,9 +211,10 @@ export default function CreateDog(){
       image: img
     }
     const getId = dispatch(postDog(dog))
-    const newId = await getId.then(res => res.id)
-    setDogId(newId)
-    setShow(true)
+    // const newId = await getId.then(res => res.id)
+    getId.then(res => {setDogId(res.id);
+    setShow(true)})
+    
    
   }
 
@@ -240,43 +240,43 @@ export default function CreateDog(){
         <form className={style.form} onSubmit={handleSubmit}>
 
           <div className={style.grouping}>
-            <label for='name'>Name *</label>
+            <label>Name *</label>
             <input name='name' id='name' placeholder='Name' onChange={handleChangeName} value={newDog.name} autoComplete='off' required/>
             <span className={style.error}>{errorManager.name}</span>
           </div>
 
           <div className={style.grouping}>
-            <label for='minHight'>Min. Height *</label>
+            <label>Min. Height *</label>
             <input name='minHight' id='minHight' placeholder='Minimum Hight (cm)' onChange={handleChangeMinHight} value={newDog.minHight} autoComplete='off' />
             {<span className={style.error}>{errorManager.minHight}</span>}
           </div>
 
           <div className={style.grouping}>
-            <label for='maxHight'>Max. Height *</label>
+            <label>Max. Height *</label>
             <input name='maxHight' id='maxHight' placeholder='Maximum Hight (cm)' onChange={handleChangeMaxHight} value={newDog.maxHight} autoComplete='off' />
             {<span className={style.error}>{errorManager.maxHight}</span>}
           </div>
 
           <div className={style.grouping}>
-            <label for='minWeight'>Min. Weight *</label>
+            <label>Min. Weight *</label>
             <input name='minWeight' id='minWeight'placeholder='Minimum Weight (kg)' onChange={handleChangeMinWeight} value={newDog.minWeight} autoComplete='off' />
             {<span className={style.error}>{errorManager.minWeight}</span>}
           </div>
 
           <div className={style.grouping}>
-            <label for='maxWeight'>Max. Weight *</label>
+            <label>Max. Weight *</label>
             <input name='maxWeight' id='maxWeight' placeholder='Maximum Weight (kg)' onChange={handleChangeMaxWeight} value={newDog.maxWeight} autoComplete='off' />
             {<span className={style.error}>{errorManager.maxWeight}</span>}
           </div>
 
           <div className={style.grouping}>
-            <label for='life_span'>Life Span *</label>
+            <label>Life Span *</label>
             <input name='life_span' id='life_span' placeholder='Life Span' onChange={handleChangeLifeSpan} value={newDog.life_span} autoComplete='off' />
             {<span className={style.error}>{errorManager.life_span}</span>}
           </div>
 
           <div className={style.grouping}>
-            <label for='image'>Image</label>
+            <label>Image</label>
             <input name='image' placeholder='Image URL' onChange={handleChangeImage} value={newDog.image} autoComplete='off' />
           </div>
 

@@ -10,19 +10,15 @@
 
 
 .fullScreen{
-  /* background-image: url('../../images/vecteezy_vector-illustration-of-dog-background-copy-space-area_7819656.jpg'); */
+  background-image: url('../../images/landing-dog.jpg');
   background-color: rgb(246,251,254);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   width: 100vw;
 
 }
-
 
 .divEnter{
   position: absolute;
@@ -34,15 +30,11 @@
   border-top-color: lightskyblue;
   border-bottom-color: lightskyblue;
   cursor: pointer;
-  /* animation: rotate 1.5s ease-in-out infinite; */
 }
 
 .enterBtn{
-  position: absolute;
   width: 20%;
   height: 5%;
-  right: 56%;
-  top: 30%;
   background-image: url('../../images/paw.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -52,6 +44,8 @@
   font-family: "Lobster", cursive;
   cursor: pointer;
   background-color:#E1C699;
+  margin-top: 10vh;
+  margin-left: 13vw;
 }
 
 .enterBtn:hover{
@@ -60,18 +54,46 @@
 }
 
 .welcome{
-  top: 15%;
-  right: 55%;
-  position: absolute;
+  width: 50vw;
+  margin: 0;
+  padding-top: 15vh;
+  padding-left: 13vw;
   font-size: 3rem;
   font-family: "Lobster", cursive;
 }
 
-.image{
-  width: 100%;
-  height: 100%;
-  object-fit:cover;
-  object-position: center;
+.logo{
+  width: 30px;
+  height: auto;
+}
+
+.aboutMe{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  bottom: 8vh;
+  right: 5vw;
+  width: 300px;
+  background-color: #e0c79a9f;
+  border-radius: 15px;
+}
+
+.spanAm{
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 7px;
+}
+
+.iconsContainer{
+  display: flex;
+  justify-content: space-around;
+  width: 10vw;
+}
+
+.btnStart:hover{
+  animation: rotate 1.5s ease-in-out infinite;
 }
 
 @keyframes rotate{
@@ -82,11 +104,6 @@
     transform: rotate(360deg)
   }
 }
-
-.btnStart:hover{
-  animation: rotate 1.5s ease-in-out infinite;
-}
-
 @media (max-width: 500px){
   .enterBtn{
     width: 40vw;

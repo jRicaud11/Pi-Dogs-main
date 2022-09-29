@@ -25,6 +25,9 @@ const dogById = async(req, res) => {
     
     const dogsFromApi = await apiDogs();
     const dog = dogsFromApi.find(d => d.id === Number(id));
+    
+    if(!dog.id) return res.status(404).json({"msg" : "Sorry, we didn\'t find the dog you're looking for"})
+
     return res.status(200).json(dog);
     
   } catch(e){
