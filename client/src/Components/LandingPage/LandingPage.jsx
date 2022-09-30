@@ -21,7 +21,7 @@ export default function LandingPage(){
         <span className={style.spanAm}>Developed By</span>
         <span className={style.spanAm}>Juan Manuel Ricaud</span>
         <div className={style.iconsContainer}>
-          <a href="https://www.linkedin.com/in/juanricaud/">
+          <a href="https://www.linkedin.com/in/juanricaud/" target="_blank">
             <img src={linkedin} alt='LinkedIn Link' className={style.logo}/>
           </a>
           <a href="https://github.com/jRicaud11" target="_blank">
