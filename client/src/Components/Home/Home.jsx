@@ -8,7 +8,7 @@ import Nav from '../NavBar/Nav'
 import Paginado from '../Paginado/Paginado.jsx'
 import Loading from '../Loading/Loadings.jsx'
 import NotFound from '../NotFound/NotFound.jsx';
-
+import Footer from '../Footer/Footer.jsx'
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -72,6 +72,7 @@ export default function Home() {
               />
             )}
         </div>
+        <Footer />
        </>
        }
       </div>
