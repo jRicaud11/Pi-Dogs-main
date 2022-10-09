@@ -1,0 +1,28 @@
+.footerInfo{
+  background: linear-gradient( #9c7958, #E1C699);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8vh;
+  bottom: 0;
+  width: 100%;
+  margin-top: 2vh;
+}
+
+
+.containerLogo{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 0px;
+}
+
+.logo{
+  width: 30px;
+  height: auto;
+
+}
+
+.footerInfo h4{
+  margin: 1px;
+}
