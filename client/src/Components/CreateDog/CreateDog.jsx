@@ -6,7 +6,6 @@ import { getTemperaments, postDog, getDogs } from '../../actions/index'
 import style from './CreateDog.module.css'
 
 export default function CreateDog(){
-  // let dogId = '';
   const history = useHistory();
   const dispatch = useDispatch()
   const dogs = useSelector(state => state.allDogs)
@@ -19,7 +18,6 @@ export default function CreateDog(){
   temperaments = temperaments ? temperaments.sort((a,b) => {
     return a.name > b.name ? 1 : -1
   }) : null
-  
 
   const [errorManager, setErrorManager] = useState({
     name: '',
@@ -46,10 +44,17 @@ export default function CreateDog(){
     if(dogs.length === 0) dispatch(getDogs())
   }, [dispatch])
 
-  //Check temperaments is not empty, or render the error
-  // useEffect(() => {
-  //   if(newDog.temperament.length === 0) setErrorManager({...errorManager, temperament: 'Choose up to 5 temperaments'})
-  // }, [newDog])
+ 
+  
+  const myWidget = window.cloudinary.createUploadWidget({
+    cloudName: 'ddwyvtgec', 
+    uploadPreset: 't7yvfkkg'}, (error, result) => { 
+      if (!error && result && result.event === "success") { 
+        setNewDog({...newDog, image: result.info.secure_url})
+        // console.log('Done! Here is the image info: ', result.info.secure_url); 
+      }
+    }
+  )
 
   function isNumber(e){
     const onlyNumbers = new RegExp(/^\d*\.{0,1}\d$/)
@@ -171,11 +176,7 @@ export default function CreateDog(){
     history.goBack()
   }
 
-  function handleChangeImage(e){
-    setNewDog({...newDog, image: e.target.value})
-  }
-
-  function handleTemperaments(e){
+   function handleTemperaments(e){
     if(newDog.temperament.includes(e.target.value)){
       return setErrorManager({...errorManager, temperament: `You can only choose ${e.target.value} once`})
     }
@@ -232,13 +233,13 @@ export default function CreateDog(){
     }
   }
 
+  
   return(
     <div className={style.container}> 
       <div className={style.formContainer}>
         <h1>Create Dog</h1>
 
         <form className={style.form} onSubmit={handleSubmit}>
-
           <div className={style.grouping}>
             <label>Name *</label>
             <input name='name' id='name' placeholder='Name' onChange={handleChangeName} value={newDog.name} autoComplete='off' required/>
@@ -274,12 +275,7 @@ export default function CreateDog(){
             <input name='life_span' id='life_span' placeholder='Life Span' onChange={handleChangeLifeSpan} value={newDog.life_span} autoComplete='off' />
             {<span className={style.error}>{errorManager.life_span}</span>}
           </div>
-
-          <div className={style.grouping}>
-            <label>Image</label>
-            <input name='image' placeholder='Image URL' onChange={handleChangeImage} value={newDog.image} autoComplete='off' />
-          </div>
-
+   
           <div className={style.grouping}>
             <label>Temperaments *</label>
             <select onChange={handleTemperaments} value={tempSelect}>
@@ -296,10 +292,17 @@ export default function CreateDog(){
             </div>
           </div>
 
+          <div className={`${style.grouping} ${style.uploadGrouping}`}>
+            <label>Image</label>
+            {/* <input name='image' placeholder='Image URL' onChange={handleChangeImage} value={newDog.image} autoComplete='off' /> */}
+            <button type="button" className={`${style.btns} ${style.upload}`} onClick={()=>myWidget.open()}>Upload</button>
+          </div>  
+
           <div className='style.buttons'>
             <button type="button" className={`${style.btns} ${style.cancel}`} onClick={handleClickCancel}>CANCEL</button>
             <button className={`${style.btns} ${style.create}`} disabled={activeCreate()}>CREATE</button>
           </div>
+
           <span>* Required Fields</span>
         </form>
               

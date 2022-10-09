@@ -65,11 +65,16 @@
   cursor: pointer
 }
 
+.uploadGrouping{
+  display: block;
+}
+
 .cancel{
   background-color: hsl(0, 60%, 50%);
 }
 
-.create{
+.create,
+.upload{
   background-color: lightskyblue;
 }
 
