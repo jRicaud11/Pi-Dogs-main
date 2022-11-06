@@ -6,7 +6,6 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT
 } = process.env;
 
-console.log(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT, NODE_ENV) 
 let sequelize = 
   process.env.NODE_ENV === "production"
     ?
