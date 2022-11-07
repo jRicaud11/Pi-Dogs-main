@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  /* height: 72vh; */
+  min-height: 76vh;
   width: 100%;
   gap: 60px;
   
