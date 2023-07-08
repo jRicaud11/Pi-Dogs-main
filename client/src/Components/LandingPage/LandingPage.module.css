@@ -107,6 +107,7 @@
 @media (max-width: 500px){
   .enterBtn{
     width: 40vw;
+    height: auto;
     top: 60%;
   }
 
@@ -116,4 +117,12 @@
     top: 15%;
   }
 
+}
+
+@media (max-height: 550px){
+  .aboutMe{
+    bottom: 0;
+    right: 0;
+    scale: 0.8;
+  }
 }
