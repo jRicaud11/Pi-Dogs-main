@@ -126,3 +126,11 @@
     scale: 0.8;
   }
 }
+
+@media (min-height: 500px){
+  .aboutMe{
+    top: 0;
+    right: 0;
+    scale: 0.5;
+  }
+}
