@@ -127,10 +127,8 @@
   }
 }
 
-@media (min-height: 500px){
+@media (max-height: 450px){
   .aboutMe{
-    top: 0;
-    right: 0;
-    scale: 0.5;
+    display: none;
   }
 }
